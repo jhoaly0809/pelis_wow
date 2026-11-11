@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Archivo del Cine Clásico Universal</title>
+
+    <!-- Bootstrap 5.3.8 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Estilos personalizados -->
+    <style>
+        /* =========================
+           CONFIGURACIÓN GENERAL
+        ========================= */
+
+        :root {
+            --color-fondo: #101116;
+            --color-secundario: #191b24;
+            --color-dorado: #d6ad60;
+            --color-texto: #f5f2eb;
+            --color-texto-secundario: #b8b8c2;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            margin: 0;
+            background: var(--color-fondo);
+            color: var(--color-texto);
+            font-family: Georgia, "Times New Roman", serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* =========================
+           BARRA DE NAVEGACIÓN
+        ========================= */
+
+        #site-header {
+            background: rgba(16, 17, 22, 0.97);
+            border-bottom: 1px solid rgba(214, 173, 96, 0.35);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+        }
+
+        .navbar-brand {
+            color: var(--color-dorado) !important;
+            font-size: 1.7rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #f5f2eb;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--color-dorado);
+        }
+
+        .navbar-toggler {
+            border: 1px solid var(--color-dorado);
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: 0 0 0 0.2rem rgba(214, 173, 96, 0.25);
+        }
+
+        .navbar-toggler-icon {
+            filter: invert(1);
+        }
+
+        .dropdown-menu {
+            background: #20212a;
+            border: 1px solid rgba(214, 173, 96, 0.3);
+        }
+
+        .dropdown-item {
+            color: var(--color-texto);
+        }
+
+        .dropdown-item:hover {
+            background: #30313b;
+            color: var(--color-dorado);
+        }
+
+        .form-control {
+            background: #20212a;
+            color: white;
+            border-color: #454653;
+        }
+
+        .form-control::placeholder {
+            color: #b8b8c2;
+        }
+
+        .form-control:focus {
+            background: #20212a;
+            color: white;
+            border-color: var(--color-dorado);
+            box-shadow: 0 0 0 0.2rem rgba(214, 173, 96, 0.15);
+        }
+
+        /* =========================
+           PORTADA PRINCIPAL
+        ========================= */
+
+        #hero {
+            min-height: 570px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    ellipse at 80% 20%,
+                    rgba(132, 87, 43, 0.35),
+                    transparent 45%
+                ),
+                linear-gradient(
+                    120deg,
+                    #101116 15%,
+                    #28212a 55%,
+                    #473226 100%
+                );
+            border-bottom: 1px solid rgba(214, 173, 96, 0.2);
+        }
+
+        #hero::before {
+            content: "CINEMA";
+            position: absolute;
+            right: -20px;
+            bottom: 20px;
+            font-family: Georgia, serif;
+            font-size: clamp(5rem, 15vw, 15rem);
+            font-weight: bold;
+            letter-spacing: 15px;
+            color: rgba(255, 255, 255, 0.035);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 850px;
+            padding: 90px 0;
+            animation: aparecer 1s ease;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 8px 16px;
+            margin-bottom: 24px;
+            color: var(--color-dorado);
+            border: 1px solid rgba(214, 173, 96, 0.5);
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-family: Arial, sans-serif;
+            font-size: 0.75rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            line-height: 1.08;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .hero-title span {
+            color: var(--color-dorado);
+        }
+
+        .hero-subtitle {
+            max-width: 700px;
+            color: #e1d9cf;
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+
+        .hero-description {
+            max-width: 650px;
+            color: var(--color-texto-secundario);
+            line-height: 1.8;
+            margin-top: 15px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-dorado {
+            background: var(--color-dorado);
+            color: #17130c;
+            border: 1px solid var(--color-dorado);
+            padding: 13px 23px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-dorado:hover {
+            background: #f0cb83;
+            color: #17130c;
+            transform: translateY(-3px);
+        }
+
+        .btn-contorno {
+            background: transparent;
+            color: var(--color-texto);
+            border: 1px solid var(--color-dorado);
+            padding: 13px 23px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-contorno:hover {
+            background: var(--color-dorado);
+            color: #17130c;
+        }
+
+        /* =========================
+           TÍTULOS DE SECCIÓN
+        ========================= */
+
+        .section-title {
+            margin-bottom: 12px;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 85px;
+            height: 3px;
+            margin: 18px auto;
+            background: var(--color-dorado);
+        }
+
+        .tagline {
+            color: var(--color-texto-secundario);
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        /* =========================
+           CATÁLOGO
+        ========================= */
+
+        #catalog {
+            padding-top: 80px;
+            padding-bottom: 85px;
+        }
+
+        .movie-card {
+            height: 100%;
+            overflow: hidden;
+            background: var(--color-secundario);
+            border: 1px solid #30313b;
+            border-radius: 12px;
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-dorado);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-media {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-poster {
+            height: 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #34303b, #17171d);
+        }
+
+        .card-poster::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(16, 17, 22, 0.8),
+                transparent 70%
+            );
+            pointer-events: none;
+        }
+
+        .card-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .movie-card:hover .card-poster img {
+            transform: scale(1.06);
+        }
+
+        .poster-metropolis {
+            background:
+                radial-gradient(circle at 50% 30%, #b9a07b, transparent 20%),
+                linear-gradient(145deg, #554a3d, #15151b 75%);
+        }
+
+        .poster-kane {
+            background:
+                radial-gradient(circle at 70% 30%, #8d7a61, transparent 22%),
+                linear-gradient(135deg, #4b4745, #17171b 75%);
+        }
+
+        .poster-2001 {
+            background:
+                radial-gradient(circle at 50% 40%, #d7b66d, transparent 15%),
+                linear-gradient(145deg, #1d3150, #08090e 80%);
+        }
+
+        .poster-singin {
+            background:
+                radial-gradient(circle at 60% 35%, #b7c2d0, transparent 20%),
+                linear-gradient(145deg, #4a6373, #252432 80%);
+        }
+
+        .poster-godfather {
+            background:
+                radial-gradient(circle at 50% 25%, #87653d, transparent 18%),
+                linear-gradient(145deg, #32251e, #090909 80%);
+        }
+
+        .poster-metropolis::before,
+        .poster-kane::before,
+        .poster-2001::before,
+        .poster-singin::before,
+        .poster-godfather::before {
+            content: "CINE CLÁSICO";
+            position: absolute;
+            z-index: 1;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            text-align: center;
+        }
+
+        .card-badge {
+            position: absolute;
+            z-index: 2;
+            top: 15px;
+            left: 15px;
+            background: var(--color-dorado);
+            color: #19130a;
+            padding: 7px 12px;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            font-size: 0.72rem;
+            font-weight: bold;
+        }
+
+        .card-body {
+            padding: 22px;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 17px;
+        }
+
+        .genre-tag {
+            color: var(--color-dorado);
+            font-family: Arial, sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .rating-badge {
+            color: #f4d17f;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .movie-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .movie-director {
+            color: var(--color-texto-secundario);
+            font-family: Arial, sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .movie-director strong {
+            color: #e7d3ae;
+        }
+
+        .movie-synopsis {
+            color: #c3c1c9;
+            font-family: Arial, sans-serif;
+            font-size: 0.93rem;
+            line-height: 1.7;
+            margin-top: 15px;
+        }
+
+        .card-footer-custom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border-top: 1px solid #353641;
+            padding-top: 17px;
+            margin-top: 18px;
+        }
+
+        .runtime {
+            color: var(--color-texto-secundario);
+            font-family: Arial, sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .btn-card {
+            background: transparent;
+            color: var(--color-dorado);
+            border: 1px solid var(--color-dorado);
+            padding: 8px 13px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .btn-card:hover {
+            background: var(--color-dorado);
+            color: #17130c;
+        }
+
+        /* =========================
+           ACERCA DEL PROYECTO
+        ========================= */
+
+        #about {
+            padding: 75px 0;
+            background: #191b24;
+            border-top: 1px solid #30313b;
+        }
+
+        .about-text {
+            color: var(--color-texto-secundario);
+            line-height: 1.9;
+            font-family: Arial, sans-serif;
+        }
+
+        .about-highlight {
+            color: var(--color-dorado);
+        }
+
+        /* =========================
+           PIE DE PÁGINA
+        ========================= */
+
+        #site-footer {
+            background: #0b0c10;
+            border-top: 1px solid rgba(214, 173, 96, 0.3);
+            padding: 30px 15px;
+            text-align: center;
+        }
+
+        #site-footer p {
+            color: #a8a8b2;
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--color-dorado);
+            margin: 0 7px;
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* =========================
+           ANIMACIONES
+        ========================= */
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 767px) {
+            #hero {
+                min-height: auto;
+            }
+
+            .hero-content {
+                padding: 70px 0;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .hero-buttons a {
+                text-align: center;
+            }
+
+            .card-poster {
+                height: 240px;
+            }
+
+            .navbar-brand {
+                font-size: 1.35rem;
+            }
+        }
+    
+        /* ================================================
+           TEMA ELEGANTE: AZUL NOCHE + CHAMPAGNE
+           ================================================ */
+        :root {
+            --color-fondo: #101a2b;
+            --color-secundario: #18263b;
+            --color-dorado: #c9ad78;
+            --color-texto: #f5f1e8;
+            --color-texto-secundario: #b8c2d0;
+        }
+
+        body { background: #101a2b; color: #f5f1e8; }
+        #site-header { background: rgba(12, 22, 38, .97); border-bottom-color: rgba(201,173,120,.4); }
+        .dropdown-menu, .form-control { background-color: #1b2a40; border-color: #42516a; }
+        .dropdown-item:hover { background: #263852; color: #e4c995; }
+        #hero {
+            background: radial-gradient(ellipse at 80% 20%, rgba(201,173,120,.18), transparent 45%),
+                        linear-gradient(120deg, #101a2b 10%, #1b2c45 58%, #34445a 100%);
+            border-bottom-color: rgba(201,173,120,.28);
+        }
+        .hero-subtitle { color: #e3e7ed; }
+        .btn-dorado { background: #c9ad78; border-color: #c9ad78; color: #172235; }
+        .btn-dorado:hover { background: #e1c99c; border-color: #e1c99c; color: #172235; }
+        .btn-contorno, .btn-card { border-color: #c9ad78; color: #e4c995; }
+        .btn-contorno:hover { background: #c9ad78; color: #172235; }
+        .movie-card { background: #18263b; border-color: #34445a; box-shadow: 0 8px 24px rgba(0,0,0,.14); }
+        .movie-card:hover { border-color: #c9ad78; box-shadow: 0 18px 38px rgba(0,0,0,.28); }
+        .card-poster { height: 310px; background-color: #26364d; }
+        .card-poster img { display: block; object-fit: cover; }
+        .card-poster::after { background: linear-gradient(to top, rgba(10,18,31,.55), transparent 65%); }
+        .card-badge { background: #c9ad78; color: #172235; }
+        .genre-tag, .navbar-brand, .hero-title span { color: #e4c995 !important; }
+        .rating-badge { color: #f0d79f; }
+        .movie-director strong { color: #e4c995; }
+        .movie-synopsis { color: #c5ceda; }
+        .card-footer-custom { border-top-color: #34445a; }
+        #about { background: #142239; }
+        #site-footer { background: #0b1423; border-top: 1px solid rgba(201,173,120,.3); }
+        .modal-content { background: #18263b !important; color: #f5f1e8 !important; border-color: #c9ad78 !important; }
+        @media (max-width: 767.98px) { .card-poster { height: 270px; } }
+
+    
+.card-poster img { display:block !important; width:100%; height:100%; object-fit:cover; }
+</style>
+</head>
+
+<body>
+
+    <!-- =========================
+         MENÚ DE NAVEGACIÓN
+    ========================= -->
+
+    <header id="site-header">
+
+        <nav class="navbar navbar-expand-lg navbar-dark">
+
+            <div class="container">
+
+                <a class="navbar-brand" href="#inicio">
+                    CineClásico
+                </a>
+
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarContenido"
+                    aria-controls="navbarContenido"
+                    aria-expanded="false"
+                    aria-label="Abrir menú">
+
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+                <div
+                    class="collapse navbar-collapse"
+                    id="navbarContenido">
+
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#inicio">
+                                Inicio
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#catalog">
+                                Catálogo
+                            </a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+
+                            <a
+                                class="nav-link dropdown-toggle"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false">
+
+                                Destacados
+
+                            </a>
+
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <a class="dropdown-item" href="#casablanca">
+                                        Casablanca
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="#metropolis">
+                                        Metrópolis
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="#padrino">
+                                        El Padrino
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">
+                                Historia
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <form class="d-flex gap-2" id="formBusqueda" role="search">
+
+                        <input
+                            class="form-control"
+                            id="buscarPelicula"
+                            type="search"
+                            placeholder="Buscar película..."
+                            aria-label="Buscar película">
+
+                        <button class="btn btn-outline-warning" type="submit">
+                            Buscar
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         PORTADA PRINCIPAL
+    ========================= -->
+
+    <section id="hero">
+
+        <div class="container">
+
+            <div class="hero-content">
+
+                <span class="hero-tag">
+                    Archivo Histórico Cinematográfico
+                </span>
+
+                <h1 class="hero-title">
+                    Grandes Obras Maestras del
+                    <span>Séptimo Arte</span>
+                </h1>
+
+                <p class="hero-subtitle">
+                    Una travesía visual por los filmes que definieron
+                    el lenguaje narrativo, la dirección de arte y la
+                    banda sonora de la historia del cine.
+                </p>
+
+                <p class="hero-description">
+                    Desde el expresionismo mudo de los años veinte
+                    hasta la revolución del color y la ciencia ficción
+                    de culto. Explora fichas técnicas, géneros y
+                    calificaciones de películas inolvidables.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#catalog" class="btn btn-dorado">
+                        Explorar catálogo
+                    </a>
+
+                    <a href="#about" class="btn btn-contorno">
+                        Saber más
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CATÁLOGO DE PELÍCULAS
+    ========================= -->
+
+    <main>
+
+        <section id="catalog" class="container">
+
+            <div class="row">
+
+                <div class="col-12">
+
+                    <h2 class="section-title">
+                        Catálogo Principal de Películas
+                    </h2>
+
+                    <p class="tagline">
+                        Fichas de obras maestras del cine universal
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="row g-4" id="listaPeliculas">
+
+
+                <!-- CASABLANCA -->
+
+                <article
+                    class="col-12 col-md-6 col-lg-6"
+                    id="casablanca"
+                    data-pelicula="Casablanca Drama Romance Michael Curtiz">
+
+                    <div class="movie-card">
+
+                        <div class="card-media">
+
+                            <div class="card-badge">
+                                Clásico imperdible
+                            </div>
+
+                            <div class="card-poster">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/CasablancaPoster-Gold.jpg?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=original" loading="lazy">
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="card-meta">
+
+                                <span class="genre-tag">
+                                    Drama / Romance
+                                </span>
+
+                                <span class="rating-badge">
+                                    ★ 9.2
+                                </span>
+
+                            </div>
+
+                            <h3 class="movie-title">
+                                Casablanca
+                            </h3>
+
+                            <p class="movie-director">
+                                Dirigida por
+                                <strong>Michael Curtiz</strong> (1942)
+                            </p>
+
+                            <p class="movie-synopsis">
+                                En el Marruecos de la Segunda Guerra
+                                Mundial, el propietario de un club
+                                nocturno debe decidir si ayuda a su
+                                antiguo amor y a su esposo a ponerse
+                                a salvo.
+                            </p>
+
+                            <div class="card-footer-custom">
+
+                                <span class="runtime">
+                                    102 min
+                                </span>
+
+                                <button
+                                    class="btn btn-card ver-ficha"
+                                    data-titulo="Casablanca"
+                                    data-detalle="Dirigida por Michael Curtiz en 1942. Drama romántico ambientado durante la Segunda Guerra Mundial. Duración: 102 minutos. Calificación: 9.2.">
+
+                                    Ver ficha
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- METRÓPOLIS -->
+
+                <article
+                    class="col-12 col-md-6 col-lg-6"
+                    id="metropolis"
+                    data-pelicula="Metrópolis ciencia ficción Fritz Lang">
+
+                    <div class="movie-card">
+
+                        <div class="card-media">
+
+                            <div class="card-badge">
+                                Expresionismo mudo
+                            </div>
+
+                            <div class="card-poster poster-metropolis">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS29_7Gzi_SN35nvJDBTDdIw8sr_VMyYrYRYabVMu4Jinq5yCwJ1Xtqg_3U&s=10" alt="Cartel de Metrópolis" loading="lazy">
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="card-meta">
+
+                                <span class="genre-tag">
+                                    Ciencia ficción
+                                </span>
+
+                                <span class="rating-badge">
+                                    ★ 8.3
+                                </span>
+
+                            </div>
+
+                            <h3 class="movie-title">
+                                Metrópolis
+                            </h3>
+
+                            <p class="movie-director">
+                                Dirigida por
+                                <strong>Fritz Lang</strong> (1927)
+                            </p>
+
+                            <p class="movie-synopsis">
+                                En un futuro distópico dividido entre
+                                pensadores y trabajadores, el hijo del
+                                gobernante de la ciudad se enamora de
+                                una líder de la clase trabajadora.
+                            </p>
+
+                            <div class="card-footer-custom">
+
+                                <span class="runtime">
+                                    153 min
+                                </span>
+
+                                <button
+                                    class="btn btn-card ver-ficha"
+                                    data-titulo="Metrópolis"
+                                    data-detalle="Dirigida por Fritz Lang en 1927. Película muda de ciencia ficción sobre una sociedad futurista dividida en clases. Duración indicada: 153 minutos. Calificación: 8.3.">
+
+                                    Ver ficha
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CIUDADANO KANE -->
+
+                <article
+                    class="col-12 col-md-6 col-lg-6"
+                    id="ciudadano-kane"
+                    data-pelicula="Ciudadano Kane drama misterio Orson Welles">
+
+                    <div class="movie-card">
+
+                        <div class="card-media">
+
+                            <div class="card-badge">
+                                Innovación técnica
+                            </div>
+
+                            <div class="card-poster poster-kane">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Citizen_Kane_poster%2C_1941_%28Style_B%2C_unrestored%29.jpg?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=original" alt="Cartel de Ciudadano Kane" loading="lazy">
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="card-meta">
+
+                                <span class="genre-tag">
+                                    Drama / Misterio
+                                </span>
+
+                                <span class="rating-badge">
+                                    ★ 8.9
+                                </span>
+
+                            </div>
+
+                            <h3 class="movie-title">
+                                Ciudadano Kane
+                            </h3>
+
+                            <p class="movie-director">
+                                Dirigida por
+                                <strong>Orson Welles</strong> (1941)
+                            </p>
+
+                            <p class="movie-synopsis">
+                                Tras la muerte de un poderoso magnate
+                                de los medios de comunicación, un grupo
+                                de periodistas intenta descifrar el
+                                significado de sus últimas palabras:
+                                "Rosebud".
+                            </p>
+
+                            <div class="card-footer-custom">
+
+                                <span class="runtime">
+                                    119 min
+                                </span>
+
+                                <button
+                                    class="btn btn-card ver-ficha"
+                                    data-titulo="Ciudadano Kane"
+                                    data-detalle="Dirigida por Orson Welles en 1941. Drama y misterio sobre la vida de un magnate de los medios. Duración: 119 minutos. Calificación: 8.9.">
+
+                                    Ver ficha
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- 2001: ODISEA DEL ESPACIO -->
+
+                <article
+                    class="col-12 col-md-6 col-lg-6"
+                    id="odisea"
+                    data-pelicula="2001 Odisea del Espacio ciencia ficción Stanley Kubrick">
+
+                    <div class="movie-card">
+
+                        <div class="card-media">
+
+                            <div class="card-badge">
+                                Cine de culto
+                            </div>
+
+                            <div class="card-poster poster-2001">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhUrJg5E2mN6ckaTbKk445_1O_lmMZKx8FOwc88MH3Cu0jQA-fcl7BVj8&s=10" loading="lazy">
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="card-meta">
+
+                                <span class="genre-tag">
+                                    Ciencia ficción
+                                </span>
+
+                                <span class="rating-badge">
+                                    ★ 9.0
+                                </span>
+
+                            </div>
+
+                            <h3 class="movie-title">
+                                2001: Odisea del Espacio
+                            </h3>
+
+                            <p class="movie-director">
+                                Dirigida por
+                                <strong>Stanley Kubrick</strong> (1968)
+                            </p>
+
+                            <p class="movie-synopsis">
+                                Una enigmática estructura influye en la
+                                evolución humana antes de que una nave
+                                espacial sea enviada a Júpiter bajo el
+                                control de la inteligencia artificial
+                                HAL 9000.
+                            </p>
+
+                            <div class="card-footer-custom">
+
+                                <span class="runtime">
+                                    149 min
+                                </span>
+
+                                <button
+                                    class="btn btn-card ver-ficha"
+                                    data-titulo="2001: Odisea del Espacio"
+                                    data-detalle="Dirigida por Stanley Kubrick en 1968. Una obra de ciencia ficción sobre la evolución humana, el espacio y la inteligencia artificial. Duración: 149 minutos. Calificación: 9.0.">
+
+                                    Ver ficha
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CANTAR BAJO LA LLUVIA -->
+
+                <article
+                    class="col-12 col-md-6 col-lg-6"
+                    id="cantar-lluvia"
+                    data-pelicula="Cantar bajo la lluvia musical comedia Gene Kelly Stanley Donen">
+
+                    <div class="movie-card">
+
+                        <div class="card-media">
+
+                            <div class="card-badge">
+                                Era dorada
+                            </div>
+
+                            <div class="card-poster poster-singin">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Singin%27_in_the_Rain_%281952_poster%29.jpg?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=original" alt="Cartel de Cantar bajo la lluvia" loading="lazy">
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="card-meta">
+
+                                <span class="genre-tag">
+                                    Musical / Comedia
+                                </span>
+
+                                <span class="rating-badge">
+                                    ★ 8.3
+                                </span>
+
+                            </div>
+
+                            <h3 class="movie-title">
+                                Cantar bajo la lluvia
+                            </h3>
+
+                            <p class="movie-director">
+                                Dirigida por
+                                <strong>Gene Kelly y Stanley Donen</strong>
+                                (1952)
+                            </p>
+
+                            <p class="movie-synopsis">
+                                Una compañía de producción
+                                cinematográfica y sus estrellas hacen
+                                la difícil transición del cine mudo
+                                al sonoro en Hollywood a finales de
+                                los años veinte.
+                            </p>
+
+                            <div class="card-footer-custom">
+
+                                <span class="runtime">
+                                    103 min
+                                </span>
+
+                                <button
+                                    class="btn btn-card ver-ficha"
+                                    data-titulo="Cantar bajo la lluvia"
+                                    data-detalle="Dirigida por Gene Kelly y Stanley Donen en 1952. Musical y comedia sobre la transición del cine mudo al sonoro. Duración: 103 minutos. Calificación: 8.3.">
+
+                                    Ver ficha
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- EL PADRINO -->
+
+                <article
+                    class="col-12 col-md-6 col-lg-6"
+                    id="padrino"
+                    data-pelicula="El Padrino drama policial Francis Ford Coppola">
+
+                    <div class="movie-card">
+
+                        <div class="card-media">
+
+                            <div class="card-badge">
+                                Obra cumbre
+                            </div>
+
+                            <div class="card-poster poster-godfather">
+                                <img src="https://m.media-amazon.com/images/M/MV5BZmNiNzM4MTctODI5YS00MzczLWE2MzktNzY4YmNjYjA5YmY1XkEyXkFqcGc@._V1_.jpg" alt="Cartel de El Padrino" loading="lazy">
+                            </div>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="card-meta">
+
+                                <span class="genre-tag">
+                                    Policial / Drama
+                                </span>
+
+                                <span class="rating-badge">
+                                    ★ 9.2
+                                </span>
+
+                            </div>
+
+                            <h3 class="movie-title">
+                                El Padrino
+                            </h3>
+
+                            <p class="movie-director">
+                                Dirigida por
+                                <strong>Francis Ford Coppola</strong>
+                                (1972)
+                            </p>
+
+                            <p class="movie-synopsis">
+                                El envejecido patriarca de una dinastía
+                                familiar transfiere el control de su
+                                organización a su reacio hijo menor.
+                            </p>
+
+                            <div class="card-footer-custom">
+
+                                <span class="runtime">
+                                    175 min
+                                </span>
+
+                                <button
+                                    class="btn btn-card ver-ficha"
+                                    data-titulo="El Padrino"
+                                    data-detalle="Dirigida por Francis Ford Coppola en 1972. Drama criminal sobre una familia y la sucesión de su organización. Duración: 175 minutos. Calificación: 9.2.">
+
+                                    Ver ficha
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+            <!-- Mensaje de búsqueda sin resultados -->
+
+            <div
+                id="sinResultados"
+                class="text-center mt-5"
+                style="display: none;">
+
+                <h3>No se encontraron películas</h3>
+
+                <p class="text-secondary">
+                    Prueba con otro título o género.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             HISTORIA DEL CINE
+        ========================= -->
+
+        <section id="about">
+
+            <div class="container">
+
+                <div class="row justify-content-center">
+
+                    <div class="col-12 col-lg-9 text-center">
+
+                        <h2 class="section-title">
+                            La historia del séptimo arte
+                        </h2>
+
+                        <p class="about-text">
+                            El cine es una de las expresiones artísticas
+                            más influyentes de la historia. Desde las
+                            primeras películas mudas hasta las grandes
+                            producciones modernas, ha evolucionado en
+                            narrativa, fotografía, sonido y tecnología.
+                        </p>
+
+                        <p class="about-text">
+                            Este archivo reúne algunas películas que
+                            dejaron una huella en la cultura popular y
+                            en la manera de contar historias a través
+                            de imágenes en movimiento.
+                        </p>
+
+                        <p class="about-highlight">
+                            Preservar el cine es preservar nuestra
+                            memoria cultural.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         PIE DE PÁGINA
+    ========================= -->
+
+    <footer id="site-footer">
+
+        <div class="container">
+
+            <p>
+                &copy; 2026 Archivo del Cine Clásico Universal.
+            </p>
+
+            <p>
+                Práctica académica de diseño web y CSS3.
+            </p>
+
+            <div class="footer-links">
+
+                <a href="#inicio">
+                    Inicio
+                </a>
+
+                |
+
+                <a href="#catalog">
+                    Catálogo
+                </a>
+
+                |
+
+                <a href="#about">
+                    Historia del cine
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         VENTANA DE INFORMACIÓN
+    ========================= -->
+
+    <div
+        class="modal fade"
+        id="modalPelicula"
+        tabindex="-1"
+        aria-labelledby="modalTitulo"
+        aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content"
+                 style="background: #191b24; color: #f5f2eb; border: 1px solid #d6ad60;">
+
+                <div class="modal-header"
+                     style="border-bottom-color: #353641;">
+
+                    <h5 class="modal-title" id="modalTitulo">
+                        Información de la película
+                    </h5>
+
+                    <button
+                        type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"
+                        aria-label="Cerrar">
+                    </button>
+
+                </div>
+
+                <div class="modal-body" id="modalDescripcion">
+                </div>
+
+                <div class="modal-footer"
+                     style="border-top-color: #353641;">
+
+                    <button
+                        type="button"
+                        class="btn btn-dorado"
+                        data-bs-dismiss="modal">
+
+                        Cerrar
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- JavaScript personalizado -->
+    <script>
+
+        // ====================================
+        // BÚSQUEDA DE PELÍCULAS
+        // ====================================
+
+        const formulario = document.getElementById("formBusqueda");
+
+        const campoBusqueda = document.getElementById("buscarPelicula");
+
+        const peliculas = document.querySelectorAll("[data-pelicula]");
+
+        const mensajeSinResultados = document.getElementById("sinResultados");
+
+
+        formulario.addEventListener("submit", function (evento) {
+
+            evento.preventDefault();
+
+            const busqueda = campoBusqueda.value
+                .trim()
+                .toLocaleLowerCase("es");
+
+            let resultados = 0;
+
+            peliculas.forEach(function (pelicula) {
+
+                const informacion = pelicula.dataset.pelicula
+                    .toLocaleLowerCase("es");
+
+                const coincide = informacion.includes(busqueda);
+
+                pelicula.style.display = coincide ? "" : "none";
+
+                if (coincide) {
+                    resultados++;
+                }
+
+            });
+
+            mensajeSinResultados.style.display =
+                resultados === 0 ? "block" : "none";
+
+            document.getElementById("catalog").scrollIntoView({
+                behavior: "smooth"
+            });
+
+        });
+
+
+        // ====================================
+        // MOSTRAR TODAS LAS PELÍCULAS
+        // ====================================
+
+        campoBusqueda.addEventListener("input", function () {
+
+            if (campoBusqueda.value.trim() === "") {
+
+                peliculas.forEach(function (pelicula) {
+                    pelicula.style.display = "";
+                });
+
+                mensajeSinResultados.style.display = "none";
+
+            }
+
+        });
+
+
+        // ====================================
+        // VENTANA DE INFORMACIÓN
+        // ====================================
+
+        const botonesFicha = document.querySelectorAll(".ver-ficha");
+
+        const modalElemento = document.getElementById("modalPelicula");
+
+        const modal = new bootstrap.Modal(modalElemento);
+
+        const tituloModal = document.getElementById("modalTitulo");
+
+        const descripcionModal = document.getElementById("modalDescripcion");
+
+
+        botonesFicha.forEach(function (boton) {
+
+            boton.addEventListener("click", function () {
+
+                tituloModal.textContent = boton.dataset.titulo;
+
+                descripcionModal.textContent = boton.dataset.detalle;
+
+                modal.show();
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>
